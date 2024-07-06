@@ -1,8 +1,13 @@
 const path = require('path');
 const router = require('./app/routes/main');
+
 const express = require('express');
 const app = express();
 const db = require('./app/configs/database.js');
+
+
+
+
 
 const port = 3000;
 app.use(express.static(path.join(__dirname, 'assets')));

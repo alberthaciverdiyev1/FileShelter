@@ -1,7 +1,5 @@
-const authService = require('../../services/authService');
+const authService = require('../services/authService');
 const jwt = require('jsonwebtoken');
-
-// exports.registerValidator  = require('../../validators/auth/registerValidator');
 
 exports.registerView = (req, res) => {
   res.render('auth/register',)
