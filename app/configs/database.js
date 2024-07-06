@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 
-const dbURI = 'mongodb://localhost/mydatabase';
+const dbURI = 'mongodb://localhost:27017/FileShelter';
 
 mongoose.connect(dbURI,
-     { 
-        // useNewUrlParser: true, 
-        // useUnifiedTopology: true
-     }
-    );
+  {
+    // useCreateIndex: true
+    // useNewUrlParser: true, 
+    // useUnifiedTopology: true
+  }
+);
 
 const db = mongoose.connection;
 

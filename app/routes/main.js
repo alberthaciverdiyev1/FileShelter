@@ -1,15 +1,16 @@
-
 const express = require('express');
-const Route = express.Router();
-const Auth = require('../controllers/auth/index');
-const Main = require('../controllers/main/home');
+const router = express.Router();
+const AuthController = require('../controllers/auth/index');
+const MainController = require('../controllers/main/home');
+const validate = require('../validators/validate');
 
-// Auth controller GET
-Route.route('/register').get(Auth.RegisterView);
-Route.route('/login').get(Auth.LoginView);
+// Auth routes
+router.get('/register', AuthController.registerView);
+router.post('/register', validate.registerValidator, AuthController.register);
+router.get('/login', AuthController.loginView);
+router.post('/login', AuthController.login);
 
-Route.route('/').get(Main.Index)
+// Main routes
+router.get('/', MainController.Index);
 
-
-
-module.exports = Route;
+module.exports = router;
