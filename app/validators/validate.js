@@ -44,7 +44,7 @@ exports.registerValidator = (req, res, next) => {
 
 const allowedFileTypes = ['image', 'video', 'application/pdf', 'application/msword', 'application/vnd.ms-excel'];
 
-exports.fileValidator = (req, file, cb) => {
+exports.singleFileValidator = (req, file, cb) => {
     if (!req.file) {
         const error = new Error('No file were uploaded.');
         error.status = 400;
@@ -59,7 +59,7 @@ exports.fileValidator = (req, file, cb) => {
     cb(null, true);
 };
 exports.multipleFileValidator = (req, file, cb) => {
-    console.log(req.files);
+    console.log(req);
     if (!req.files) {
         const error = new Error('No file were uploaded.');
         error.status = 400;
