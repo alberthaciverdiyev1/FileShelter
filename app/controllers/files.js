@@ -6,6 +6,7 @@ exports.uploadSingleFile = (req, res) => {
 };
 
 exports.uploadMultipleFiles = (req, res) => {
+    console.log({req});
     const response = fileService.uploadMultipleFiles(req, res);
     res.json({ staus:response.status, message: response.message });
 };

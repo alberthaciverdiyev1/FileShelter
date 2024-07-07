@@ -46,9 +46,8 @@ const allowedFileTypes = ['image', 'video', 'application/pdf', 'application/mswo
 
 exports.fileValidator = (req, file, cb) => {
     if (!req.file) {
-        return res.status(400).json({
-            message: 'No file were uploaded.',
-        });
+        const error = new Error('No file were uploaded.');
+        error.status = 400;
     }
 
     const fileType = file.mimetype;
@@ -60,11 +59,12 @@ exports.fileValidator = (req, file, cb) => {
     cb(null, true);
 };
 exports.multipleFileValidator = (req, file, cb) => {
+    console.log(req.files);
     if (!req.files) {
-        return res.status(400).json({
-            message: 'No files were uploaded.',
-        });
+        const error = new Error('No file were uploaded.');
+        error.status = 400;
     }
+
     const fileTypes = req.files.map(f => f.mimetype);
     for (const fileType of fileTypes) {
         if (!allowedFileTypes.includes(fileType)) {

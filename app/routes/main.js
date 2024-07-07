@@ -13,7 +13,7 @@ router.post('/register', validate.registerValidator, AuthController.register);
 router.get('/login', AuthController.loginView);
 router.post('/login', AuthController.login);
 //Upload
-router.post('/upload-single-file',validate.singleFileValidator, FilesController.uploadSingleFile);
+// router.post('/upload-single-file',validate.singleFileValidator, FilesController.uploadSingleFile);
 router.post('/upload-multiple-files',validate.multipleFileValidator, FilesController.uploadMultipleFiles);
 
 module.exports = router;
