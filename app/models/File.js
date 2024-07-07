@@ -6,10 +6,6 @@ const fileSchema = new Schema({
         type: String,
         required: true
     },
-    alias: {
-        type: String,
-        required: true
-    },
     path: {
         type: String,
         required: true
@@ -25,7 +21,7 @@ const fileSchema = new Schema({
     uploadedBy: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: false
     },
     deletedAt: {
         type: Date,

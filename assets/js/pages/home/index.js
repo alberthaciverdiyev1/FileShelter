@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // console.log(formData.entries());
       fetch('/upload-multiple-files', {
           method: 'POST',
-          body: formData.entries()
+          body: formData
       })
       .then(response => response.json())
       .then(data => {

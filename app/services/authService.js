@@ -14,7 +14,7 @@ exports.registerUser = async (username, email, password) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
     await user.save();
-    return { status: 201, message: "Succesfully registered", user: user };
+    return { status: 201, message: "Succesfully registered" };
 
     // return user;
   } catch (error) {

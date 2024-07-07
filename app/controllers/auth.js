@@ -14,20 +14,21 @@ exports.register = async (req, res) => {
   const { username, email, password } = req.body;
   try {
     const response = await authService.registerUser(username, email, password);
-    if (response.status === 201) {
-      const payload = {
-        user: {
-          id: res.user.id
-        }
-      };
+    return res.json({ staus: response.status, message: response.message });
 
-      jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-        if (err) throw err;
-        res.json({ staus:response.status, token });
-      });
-    }else{
-      res.status(response.status).send(response.message);
-    }
+    // if (response.status === 201) {
+    //   const payload = {
+    //     user: {
+    //       id: res.user.id
+    //     }
+    //   };
+    //   jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+    //     if (err) throw err;
+    //     res.json({ staus:response.status, token });
+    //   });
+    // }else{
+    //   res.status(response.status).send(response.message);
+    // }
   } catch (err) {
     res.status(500).send('Server error: ' + err.message);
   }
