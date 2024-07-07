@@ -26,7 +26,7 @@ exports.uploadMultipleFiles = async (req, res) => {
   try {
     for (const file of req.files) {
       const newFile = new Document({
-        filename: file.filename,
+        filename: file.originalName,
         path: file.path,
         size: file.size,
         mimeType: file.mimetype,
