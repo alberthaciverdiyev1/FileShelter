@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/css/loader.css">
 </head>
 
 <body class="bg-gray-100">
@@ -26,31 +27,9 @@
             <div>
               <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
-                <span class="sr-only">Open user menu</span>
                 <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
                   alt="user photo">
               </button>
-            </div>
-            <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow"
-              id="dropdown-user">
-              <div class="px-4 py-3" role="none">
-                <p class="text-sm text-gray-900" role="none">Neil Sims</p>
-                <p class="text-sm font-medium text-gray-900 truncate" role="none">neil.sims@flowbite.com</p>
-              </div>
-              <ul class="py-1" role="none">
-                <li>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
-                    role="menuitem">Dashboard</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
-                    role="menuitem">Settings</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 " role="menuitem">Sign
-                    out</a>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
@@ -118,7 +97,7 @@
         <label for="multiple_files"
           class="block relative w-full text-sm border border-gray-300 cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none"
           style="line-height:1.8">
-          <span class="flex items-center justify-center">Upload</span>
+          <span class="flex items-center justify-center" id="upload-button">Upload</span>
           <input id="multiple_files" type="file" multiple class="hidden">
         </label>
       </form>
@@ -128,403 +107,10 @@
 
 
   <div class="p-4 sm:ml-64 mt-14">
-    <div class="grid grid-cols-4 gap-1 sm:grid-cols-2 md:grid-cols-3 md:gap-2 lg:grid-cols-4 lg:gap-3 xl:grid-cols-4 xl:gap-4" id = "file-list">
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <!-- Diğer resimleri tekrarla -->
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-      <div
-        class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-        <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-          <img class="rounded-lg h-full w-full object-cover"
-            src="https://tecdn.b-cdn.net/img/new/standard/nature/182.jpg" alt="" />
-          <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
+    <div class="grid grid-cols-4 gap-1 sm:grid-cols-2 md:grid-cols-3 md:gap-2 lg:grid-cols-4 lg:gap-3 xl:grid-cols-4 xl:gap-4"
+      id="file-list">
     </div>
   </div>
-
-
-
 
 
   <div
@@ -552,6 +138,14 @@
         Create new item
         <div class="tooltip-arrow" data-popper-arrow></div>
       </div>
+      <form id="uploadForm">
+        <label for="multiple_files"
+          class="block relative w-full text-sm border border-gray-300 cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none"
+          style="line-height:1.8">
+          <span class="flex items-center justify-center" id="upload-button">Upload</span>
+          <input id="multiple_files" type="file" multiple class="hidden">
+        </label>
+      </form>
 
       <button data-tooltip-target="tooltip-settings" type="button"
         class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-100 dark:hover:bg-gray-800 group">
