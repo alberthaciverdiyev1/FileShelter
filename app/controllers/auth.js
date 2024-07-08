@@ -39,21 +39,31 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { email, password, rememberMe } = req.body;
-
   try {
     const data = await authService.loginUser(email, password);
+    res.clearCookie('refreshToken');
+    res.clearCookie('token');
+
     if (data.status === 200) {
       res.cookie('token', data.token, {
-          httpOnly: true,
-          secure:  process.env.IS_PRODUCTION,
-          sameSite: 'Strict',
-          maxAge: rememberMe ? 7 * 24 * 60 * 60 * 1000 : 15 * 60 * 1000
+        httpOnly: true,
+        secure: process.env.IS_PRODUCTION,
+        sameSite: 'Strict',
+        maxAge: rememberMe ? 7 * 24 * 60 * 60 * 1000 : 15 * 60 * 1000
       });
+
+      res.cookie('refreshToken', data.refreshToken, {
+        httpOnly: true,
+        secure: process.env.IS_PRODUCTION,
+        sameSite: 'Strict',
+        maxAge: rememberMe ? 15 * 24 * 60 * 60 * 1000 : 15 * 60 * 1000
+      });
+
       res.status(data.status).json({ message: data.message });
-  } else {
+    } else {
       res.status(data.status).json({ message: data.message });
-  }
-  
+    }
+
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

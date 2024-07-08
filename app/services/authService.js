@@ -28,9 +28,7 @@ exports.loginUser = async (email, password, rememberMe) => {
     if (!user) {
       // throw new Error('Invalid Credentials');
       return { status: 400, message: "Invalid Credentials" };
-
     }
-
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return { status: 400, message: "Invalid Credentials" };
@@ -43,7 +41,9 @@ exports.loginUser = async (email, password, rememberMe) => {
       }
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: rememberMe ? '7d' : '1h' });
-    return { status: 200, message: "Success", token: token };
+    const refreshToken = jwt.sign({ userId: user.id }, process.env.JWT_REFRESH_SECRET, { expiresIn: '15d' });
+
+    return { status: 200, message: "Success", token, refreshToken };
 
   } catch (error) {
     throw error;
