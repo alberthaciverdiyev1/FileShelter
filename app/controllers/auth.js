@@ -14,7 +14,7 @@ exports.register = async (req, res) => {
   const { username, email, password } = req.body;
   try {
     const response = await authService.registerUser(username, email, password);
-    return res.json({ staus: response.status, message: response.message });
+    return response;
 
     // if (response.status === 201) {
     //   const payload = {
@@ -38,11 +38,22 @@ exports.register = async (req, res) => {
 
 
 exports.login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, rememberMe } = req.body;
 
   try {
-    const token = await authService.loginUser(email, password);
-    res.json({ token });
+    const data = await authService.loginUser(email, password);
+    if (data.status === 200) {
+      res.cookie('token', data.token, {
+          httpOnly: true,
+          secure:  process.env.IS_PRODUCTION,
+          sameSite: 'Strict',
+          maxAge: rememberMe ? 7 * 24 * 60 * 60 * 1000 : 15 * 60 * 1000
+      });
+      res.status(data.status).json({ message: data.message });
+  } else {
+      res.status(data.status).json({ message: data.message });
+  }
+  
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -50,5 +61,6 @@ exports.login = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-  res.json({ msg: 'Logout successful' });
+  res.clearCookie('token');
+  res.json({ message: 'Logout successful' });
 };

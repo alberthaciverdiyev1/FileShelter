@@ -9,25 +9,21 @@ document.addEventListener('DOMContentLoaded', function () {
             password: password,
             rememberMe: rememberMe
         };
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
 
-        try {
-            const response = await fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
+        const responseData = await response.json();
 
-            if (response.status !== 201) {
-                throw new Error('HTTP error ' + response.status);
-            }
-
-            const responseData = await response.json();
-            document.cookie = `token=${responseData.token}; Secure; HttpOnly`;
+        if (response.status === 200) {
             window.location.href = '/';
-        } catch (error) {
-            console.error('Fetch error:', error);
+        } else {
+            console.error('Error:', response.status, responseData.message);
         }
+
     });
 });

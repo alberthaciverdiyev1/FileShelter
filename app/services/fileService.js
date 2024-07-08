@@ -1,4 +1,6 @@
-const Document = require('../models/File');
+const Files = require('../models/File');
+const fs = require('fs/promises');
+const path = require('path');
 
 exports.uploadSingleFile = async (req, res) => {
   console.log({ response: response });
@@ -7,13 +9,7 @@ exports.uploadSingleFile = async (req, res) => {
     path,
     size,
     mimeType: mimetype,
-    uploadedBy: req.user._id,
-
-    filename: {
-      type: String,
-      required: true
-    },
-
+    uploadedBy: req.user._id
   });
 
   newFile.save()
@@ -25,21 +21,21 @@ exports.uploadSingleFile = async (req, res) => {
 exports.uploadMultipleFiles = async (req, res) => {
   try {
     for (const file of req.files) {
-      const newFile = new Document({
-        filename: file.originalName,
-        path: file.path,
+      let modifiedPath = file.path.replace("assets\\uploads\\", "");
+      modifiedPath = modifiedPath.trim();
+      const newFile = new Files({
+        filename: file.originalname,
+        path: modifiedPath,
         size: file.size,
         mimeType: file.mimetype,
-        // uploadedBy: 555,  // Örneğin sabit bir kullanıcı ID'si
+        uploadedBy: req.auth.user.id, 
       });
-
-      await newFile.save().then(result => {
-        res.status(201).json({ status: 201, message: 'Files uploaded successfully' });
-      }).catch(error => {
-        res.status(500).json({ status: 500, message: 'An error occurred while uploading files' });
-      });
+      console.log({newFile});
+      await newFile.save();
     }
+    res.status(201).json({ status: 201, message: 'Files uploaded successfully' });
   } catch (error) {
+    console.log({ error });
     if (!res.headersSent) {
       res.status(500).json({ status: 500, error: error.message });
     }
@@ -47,20 +43,16 @@ exports.uploadMultipleFiles = async (req, res) => {
 };
 exports.listFiles = async (req, res) => {
   try {
-    await Document.find({
+    const files = await Files.find({
       $and: [
-        // { $or: [{ type: 'photo' }, { type: 'video' }] },
         { deleted_at: { $exists: false } }
       ]
-    }).exec().then(result => {
-      console.log({ result });
-      res.status(200).json({ status: 200, message: 'Success', data: result });
-
-    }).catch(x => {
-      throw x;
-    });
+    }).select('path filename likes uploadedAt');
+    // return files;
+    // console.log({files}); 
+    res.json({ status: 200, message: 'Success', data: files });
   } catch (error) {
-    console.error('Error fetching documents:', error);
+    console.error('Error fetching document:', error);
     throw error;
   }
 }

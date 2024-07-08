@@ -21,7 +21,7 @@ const fileSchema = new Schema({
     uploadedBy: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: false
+        required: true
     },
     deletedAt: {
         type: Date,

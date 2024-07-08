@@ -1,29 +1,49 @@
-document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById('multiple_files').addEventListener('change', function(e) {
-      var formData = new FormData();
-      var files = e.target.files;
+document.addEventListener("DOMContentLoaded", function () {
+    const htmlView = (data) => {
+        let h = '';
+        data.map(x => {
+            console.log({ x });
+        })
+        data.forEach(file => {
+            console.log({ file });
+            h += `<div class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
+                     <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
+                         <img class="rounded-lg h-full w-full object-cover" src="/uploads/${file.path}" alt="" />
+                         <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">
+                            ${file.filename}
+                          </p>
+                     </div>
+                   </div>`;
+        });
+        document.getElementById('file-list').innerHTML = h;
+    }
 
-      for (var i = 0; i < files.length; i++) {
-          formData.append('files', files[i]);
-      }
+    const loadFiles = () => {
+        fetch('/get-files')
+            .then(response => response.json())
+            .then(d => {
+                console.log(d);
+                if (d.status === 200) {
+                    htmlView(d.data);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    };
+    loadFiles();
 
-      // FormData içeriğini kontrol etme
-      for (var pair of formData.entries()) {
-          console.log({pair});
-      }
-      // console.log(formData.entries());
-      fetch('/upload-multiple-files', {
-          method: 'POST',
-          body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-          console.log('Response:', data);
-          // İşlem tamamlandığında yapılacak işlemler
-      })
-      .catch(error => {
-          console.error('Error:', error);
-          // Hata durumunda yapılacak işlemler
-      });
-  });
+    document.getElementById('multiple_files').addEventListener('change', function (e) {
+        var formData = new FormData();
+        var files = e.target.files;
+
+        for (var i = 0; i < files.length; i++) { formData.append('files', files[i]); } fetch('/upload-multiple-files', {
+            method: 'POST', body: formData
+        }).then(data => {
+            console.log('Response:', data);
+        })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
 });

@@ -1,19 +1,15 @@
 const fileService = require('../services/fileService');
 
 exports.uploadSingleFile = (req, res) => {
-    const response = fileService.uploadSingleFile(req, res);
-    res.json({ staus: response.status, message: response.message });
+    fileService.uploadSingleFile(req, res);
 };
 
 exports.uploadMultipleFiles = (req, res) => {
     if (!req.files || req.files.length === 0) {
         return res.status(400).json({ message: 'No files uploaded' });
     }
-    const response = fileService.uploadMultipleFiles(req, res);
-    res.json({ response });
+    fileService.uploadMultipleFiles(req, res);
 };
 exports.listFiles = (req, res) => {
-    fileService.listFiles(req, res).then((response) => {
-        res.json(response);
-    });
+    fileService.listFiles(req, res);
 };
