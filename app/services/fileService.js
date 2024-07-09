@@ -30,7 +30,6 @@ exports.uploadMultipleFiles = async (req, res) => {
         mimeType: file.mimetype,
         uploadedBy: req.auth.user.id, 
       });
-      console.log({newFile});
       await newFile.save();
     }
     res.status(201).json({ status: 201, message: 'Files uploaded successfully' });
