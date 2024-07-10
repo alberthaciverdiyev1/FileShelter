@@ -10,6 +10,8 @@
   "author": "Albert",
   "license": "ISC",
   "dependencies": {
+    "@fancyapps/fancybox": "^3.5.7",
+    "@fancyapps/ui": "^5.0.36",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",

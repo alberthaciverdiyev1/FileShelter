@@ -1,27 +1,28 @@
 document.addEventListener("DOMContentLoaded", function () {
+    Fancybox.bind("[data-fancybox]", {
+
+    });
+
     const loader = `
   <div class="loader">
   <span class="load"></span>
   </div>
   `;
-//   <span class="loader-text">loading</span>
+    //   <span class="loader-text">loading</span>
 
     const htmlView = (data) => {
         let h = '';
-        data.map(x => {
-            console.log({ x });
-        })
         data.forEach(file => {
             console.log({ file });
             h += `
-<div id="lightgallery" class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
-    <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
-        <a href="/uploads/${file.path}" data-lg-size="1920-1080">
-            <img class="rounded-lg h-full w-full object-cover" src="/uploads/${file.path}" alt="${file.filename}" />
-            <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">${file.filename}</p>
-        </a>
-    </div>
-</div>
+            <div class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-200 text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white group">
+              <div class="relative overflow-hidden bg-cover bg-no-repeat h-full">
+                  <a href="/uploads/${file.path}"  data-fancybox="gallery" data-lg-size="1920-1080">
+                       <img class="rounded-lg h-full w-full object-cover" src="/uploads/${file.path}" alt="${file.filename}" />
+                        <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded hidden group-hover:block">${file.filename}</p>
+                  </a>
+              </div>
+            </div>
        `;
         });
         document.getElementById('file-list').innerHTML = h;
