@@ -1,8 +1,6 @@
-const express = require('express');
-const app = express();
 const logger = require('../helpers/logger.js');
 
-app.use((err, req, res, next) => {
+const loggerMiddleware = (err, req, res, next) => {
   logger.error({
     message: err.message,
     stack: err.stack,
@@ -12,4 +10,6 @@ app.use((err, req, res, next) => {
   });
 
   res.status(500).json({ error: 'Internal Server Error' });
-});
+};
+
+module.exports = loggerMiddleware;
