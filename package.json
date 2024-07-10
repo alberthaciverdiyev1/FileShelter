@@ -23,7 +23,9 @@
     "mongoose": "^8.4.5",
     "multer": "^1.4.5-lts.1",
     "uuid": "^10.0.0",
-    "validator": "^13.12.0"
+    "validator": "^13.12.0",
+    "winston": "^3.13.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.4",
