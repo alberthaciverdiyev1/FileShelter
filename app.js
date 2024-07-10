@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 const loggerMiddleware = require('./app/middlewares/logger.js');
+
 require('./app/configs/database.js');
 require('./app/middlewares/globalErrorHandling.js');
 
