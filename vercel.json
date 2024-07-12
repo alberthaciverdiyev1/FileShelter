@@ -4,12 +4,36 @@
       {
         "src": "app.js",
         "use": "@vercel/node"
+      },
+      {
+        "src": "app/routes/main.js",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "assets/**/*",
+        "use": "@vercel/static"
+      },
+      {
+        "src": "views/**/*",
+        "use": "@vercel/static"
       }
     ],
     "routes": [
       {
+        "src": "/api/(.*)",
+        "dest": "/app/routes/main.js"
+      },
+      {
+        "src": "/assets/(.*)",
+        "dest": "/assets/$1"
+      },
+      {
+        "src": "/views/(.*)",
+        "dest": "/views/$1"
+      },
+      {
         "src": "/(.*)",
-        "dest": "main.js"
+        "dest": "app.js"
       }
     ]
   }
