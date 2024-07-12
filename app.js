@@ -13,7 +13,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/', router);
-app.use(loggerMiddleware);
+
+if(process.env.NODE_ENV !== 'production'){
+  app.use(loggerMiddleware);
+}
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
