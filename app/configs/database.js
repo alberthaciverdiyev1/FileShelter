@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbURI = 'mongodb://localhost:27017/FileShelter';
+const dbURI = process.env.DB_CONNECTION_STRING
 
 mongoose.connect(dbURI,
   {
