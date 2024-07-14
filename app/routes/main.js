@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('../helpers/multer');
+// const multer = require('../helpers/multer');
+const { upload } = require('../helpers/multer');
+
 const cookieParser = require('cookie-parser');
 
 const AuthController = require('../controllers/auth');
@@ -28,8 +30,8 @@ router.get('/messages/:senderId/:receiverId', ChatController.getMessages);
 router.post('/messages/:senderId/:receiverId', ChatController.sendMessage);
 
 // File upload routes
-router.post('/upload-single-file', (req, res, next) => { multer.single('file')(req, res, (err) => { if (err) return multer.errorHandler(err, req, res, next); FilesController.uploadSingleFile }); });
-router.post('/upload-multiple-files', (req, res, next) => { multer.array('files', 200)(req, res, (err) => { if (err) return multer.errorHandler(err, req, res, next); FilesController.uploadMultipleFiles(req, res) }); });
+router.post('/upload-single-file', (req, res, next) => { upload.single('file')(req, res, (err) => { if (err) return upload.errorHandler(err, req, res, next); FilesController.uploadSingleFile }); });
+router.post('/upload-multiple-files', (req, res, next) => { upload.array('files', 200)(req, res, (err) => { if (err) return upload.errorHandler(err, req, res, next); FilesController.uploadMultipleFiles(req, res) }); });
 // File list route
 router.get('/get-files', FilesController.listFiles)
 //User routes

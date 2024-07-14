@@ -1,5 +1,7 @@
 const fileService = require('../services/fileService');
 const sharp = require('../helpers/sharp');
+const { uploadToNextcloud } = require('../helpers/multer');
+
 
 
 exports.uploadSingleFile = (req, res) => {
@@ -14,13 +16,13 @@ exports.uploadMultipleFiles = async (req, res) => {
     try {
         const uploadedFiles = req.files.map(file => file.path);
         
-        const uploadPromises = files.map(file => uploadToNextcloud(file));
+        const uploadPromises = req.files.map(file => uploadToNextcloud(file));
         await Promise.all(uploadPromises);
         
         for (let filePath of uploadedFiles) {
             await sharp.createThumbnail(filePath); 
         }
-        
+
         await fileService.uploadMultipleFiles(req, res);
 
     } catch (err) {

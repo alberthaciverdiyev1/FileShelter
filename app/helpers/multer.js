@@ -22,7 +22,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const upload = multer({
+upload = multer({
   storage: storage,
   fileFilter: fileFilter
 });
@@ -44,19 +44,15 @@ upload.errorHandler = (err, req, res, next) => {
   }
 };
 
-// Nextcloud configuration
-const NEXTCLOUD_URL = 'https://nextcloud.myfiles.ecu/remote.php/webdav';
-const NEXTCLOUD_USERNAME = 'albert';
-const NEXTCLOUD_PASSWORD = ':~C>w.U2=UmJ4_g';
 
 // Function to upload file to Nextcloud
-const uploadToNextcloud = async (file) => {
+uploadToNextcloud = async (file) => {
   const uniqueFileName = uuidv4() + path.extname(file.originalname);
 
-  const response = await fetch(`${NEXTCLOUD_URL}/${uniqueFileName}`, {
+  const response = await fetch(`${process.env.NEXTCLOUD_URL}/${uniqueFileName}`, {
     method: 'PUT',
     headers: {
-      'Authorization': 'Basic ' + Buffer.from(`${NEXTCLOUD_USERNAME}:${NEXTCLOUD_PASSWORD}`).toString('base64'),
+      'Authorization': 'Basic ' + Buffer.from(`${process.env.NEXTCLOUD_USERNAME}:${process.env.NEXTCLOUD_PASSWORD}`).toString('base64'),
       'Content-Type': file.mimetype
     },
     body: file.buffer
