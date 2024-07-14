@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
-const dbURI = process.env.DB_CONNECTION_STRING
-
+const dbURI = (process.env.NODE_ENV === "development") ? (process.env.DB_LOCAL_CONNECTION_STRING) : (process.env.DB_CONNECTION_STRING)
+console.log({dbURI})
 mongoose.connect(dbURI,
   {
-    // useCreateIndex: true
-    // useNewUrlParser: true, 
-    // useUnifiedTopology: true
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+    // ssl: true
   }
 );
 

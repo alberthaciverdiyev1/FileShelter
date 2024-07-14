@@ -5,8 +5,8 @@ exports.getMessages = async (req, res, next) => {
         const { senderId, receiverId } = req.params;
         const messages = await Message.find({
             $or: [
-                { sender: senderId, receiver: receiverId, deletedAt: null },
-                { sender: receiverId, receiver: senderId, deletedAt: null }
+                { senderId: senderId, receiverId: receiverId, deletedAt: null },
+                { senderId: receiverId, receiverId: senderId, deletedAt: null }
             ]
         }).sort({ createdAt: 1 });
 
@@ -20,17 +20,12 @@ exports.sendMessage = async (req, res, next) => {
     try {
         const { senderId, receiverId } = req.params;
         const { content } = req.body;
-
-        console.log({req});
-
         const newMessage = new Message({
-            sender: senderId,
-            receiver: receiverId,
-            content,
+            senderId: senderId,
+            receiverId: receiverId,
+            message: content,
         });
-
         await newMessage.save();
-
         res.status(201).json(newMessage);
     } catch (err) {
         next(err);

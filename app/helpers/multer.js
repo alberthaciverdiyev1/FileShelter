@@ -1,16 +1,8 @@
-const multer = require('multer');
+const fetch = require('node-fetch');
 const { v4: uuidv4 } = require('uuid');
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'assets/uploads/');
-  },
-  filename: function (req, file, cb) {
-    const originalName = file.originalname.replace(/\s+/g, '-');
-    const uniqueName = `${Date.now()}-${uuidv4()}-${originalName}`;
-    cb(null, uniqueName);
-  }
-});
+const path = require('path');
+const multer = require('multer');
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
   const allowedTypes = [
@@ -52,4 +44,32 @@ upload.errorHandler = (err, req, res, next) => {
   }
 };
 
-module.exports = upload;
+// Nextcloud configuration
+const NEXTCLOUD_URL = 'https://nextcloud.example.com/remote.php/webdav';
+const NEXTCLOUD_USERNAME = 'your-username';
+const NEXTCLOUD_PASSWORD = 'your-password';
+
+// Function to upload file to Nextcloud
+const uploadToNextcloud = async (file) => {
+  const uniqueFileName = uuidv4() + path.extname(file.originalname);
+
+  const response = await fetch(`${NEXTCLOUD_URL}/${uniqueFileName}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': 'Basic ' + Buffer.from(`${NEXTCLOUD_USERNAME}:${NEXTCLOUD_PASSWORD}`).toString('base64'),
+      'Content-Type': file.mimetype
+    },
+    body: file.buffer
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to upload file to Nextcloud: ${response.statusText}`);
+  }
+
+  return response;
+};
+
+module.exports = {
+  upload,
+  uploadToNextcloud,
+};
