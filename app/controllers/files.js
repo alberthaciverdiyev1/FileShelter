@@ -20,6 +20,7 @@ exports.uploadMultipleFiles = async (req, res) => {
         for (let filePath of uploadedFiles) {
             await sharp.createThumbnail(filePath); 
         }
+        
         await fileService.uploadMultipleFiles(req, res);
 
     } catch (err) {

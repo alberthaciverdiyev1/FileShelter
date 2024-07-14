@@ -45,9 +45,9 @@ upload.errorHandler = (err, req, res, next) => {
 };
 
 // Nextcloud configuration
-const NEXTCLOUD_URL = 'https://nextcloud.example.com/remote.php/webdav';
-const NEXTCLOUD_USERNAME = 'your-username';
-const NEXTCLOUD_PASSWORD = 'your-password';
+const NEXTCLOUD_URL = 'https://nextcloud.myfiles.ecu/remote.php/webdav';
+const NEXTCLOUD_USERNAME = 'albert';
+const NEXTCLOUD_PASSWORD = ':~C>w.U2=UmJ4_g';
 
 // Function to upload file to Nextcloud
 const uploadToNextcloud = async (file) => {
