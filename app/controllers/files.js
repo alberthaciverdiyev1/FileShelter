@@ -15,14 +15,8 @@ exports.uploadMultipleFiles = async (req, res) => {
 
     try {
         const uploadedFiles = req.files.map(file => file.path);
-        
         const uploadPromises = req.files.map(file => uploadToNextcloud(file));
-        await Promise.all(uploadPromises);
-        
-        for (let filePath of uploadedFiles) {
-            await sharp.createThumbnail(filePath); 
-        }
-
+        req.filearray = await Promise.all(uploadPromises);
         await fileService.uploadMultipleFiles(req, res);
 
     } catch (err) {

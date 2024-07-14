@@ -3,6 +3,8 @@ const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const multer = require('multer');
 const storage = multer.memoryStorage();
+const sharp = require('sharp');
+const { log } = require('console');
 
 const fileFilter = (req, file, cb) => {
   const allowedTypes = [
@@ -47,9 +49,12 @@ upload.errorHandler = (err, req, res, next) => {
 
 // Function to upload file to Nextcloud
 uploadToNextcloud = async (file) => {
-  const uniqueFileName = uuidv4() + path.extname(file.originalname);
+  const uploadedFiles = [];
+  const uniqueName = uuidv4();
+  const uniqueFileName = uniqueName + path.extname(file.originalname);
+  const uniqueThumbnailName = uniqueName + '_thumbnail' + path.extname(file.originalname);
 
-  const response = await fetch(`${process.env.NEXTCLOUD_URL}/${uniqueFileName}`, {
+  const response = await fetch(`${process.env.NEXTCLOUD_FILES_URL}/${uniqueFileName}`, {
     method: 'PUT',
     headers: {
       'Authorization': 'Basic ' + Buffer.from(`${process.env.NEXTCLOUD_USERNAME}:${process.env.NEXTCLOUD_PASSWORD}`).toString('base64'),
@@ -58,11 +63,38 @@ uploadToNextcloud = async (file) => {
     body: file.buffer
   });
 
-  if (!response.ok) {
+  if (response.ok) {
+    const buffer = await sharp(file.buffer)
+      .jpeg({ quality: 50 })
+      .rotate()
+      .resize({ width: 400, height: 400 })
+      .toBuffer();
+
+    const response = await fetch(`${process.env.NEXTCLOUD_THUMBNAILS_URL}/${uniqueThumbnailName}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Basic ' + Buffer.from(`${process.env.NEXTCLOUD_USERNAME}:${process.env.NEXTCLOUD_PASSWORD}`).toString('base64'),
+        'Content-Type': file.mimetype
+      },
+      body: buffer
+    });
+
+    if (!response.ok) {
+      throw new Error(`Nextcloud upload failed: ${response.statusText}`);
+    }
+    uploadedFiles.push(
+      file.size,
+      file.mimetype,
+      file.originalname,
+      uniqueFileName,
+      uniqueThumbnailName
+    )
+
+  } else {
     throw new Error(`Failed to upload file to Nextcloud: ${response.statusText}`);
   }
 
-  return response;
+  return uploadedFiles;
 };
 
 module.exports = {

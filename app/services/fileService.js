@@ -1,3 +1,4 @@
+const { log, Console } = require('console');
 const Files = require('../models/File');
 const fs = require('fs/promises');
 const path = require('path');
@@ -20,14 +21,13 @@ exports.uploadSingleFile = async (req, res) => {
 
 exports.uploadMultipleFiles = async (req, res) => {
   try {
-    for (const file of req.files) {
-      let modifiedPath = file.path.replace("assets\\uploads\\", "");
-      modifiedPath = modifiedPath.trim();
+    for (const file of req.filearray) {
+      console.log("file", file);
       const newFile = new Files({
-        filename: file.originalname,
-        path: modifiedPath,
-        size: file.size,
-        mimeType: file.mimetype,
+        filename: file[2],
+        path: file[3],
+        size: file[0],
+        mimeType: file[1],
         uploadedBy: req.auth.user.id, 
       });
       await newFile.save();
