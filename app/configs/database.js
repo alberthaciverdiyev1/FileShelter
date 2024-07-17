@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbURI = (process.env.NODE_ENV === "development") ? (process.env.DB_LOCAL_CONNECTION_STRING) : (process.env.DB_CONNECTION_STRING)
-console.log({dbURI})
+const dbURI = (process.env.IS_PRODUCTION) ? (process.env.DB_CONNECTION_STRING) : (process.env.DB_LOCAL_CONNECTION_STRING)
 mongoose.connect(dbURI,
   {
     // useNewUrlParser: true,
