@@ -16,15 +16,15 @@ exports.getMessages = async (req, res, next) => {
     }
 };
 
-exports.sendMessage = async (req, res, next) => {
+exports.sendMessage = async (senderId,msg,next) => {
     try {
-        const { senderId, receiverId } = req.params;
-        const { content } = req.body;
+        const { receiverId, message } = msg
         const newMessage = new Message({
             senderId: senderId,
             receiverId: receiverId,
-            message: content,
+            message: message,
         });
+        console.log({newMessage});
         await newMessage.save();
         res.status(201).json(newMessage);
     } catch (err) {

@@ -75,19 +75,12 @@
         </li>
         <li>
           <a href="/chats" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-            <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M20 2H4C2.89543 2 2 2.89543 2 4V18C2 19.1046 2.89543 20 4 20H18L22 24V4C22 2.89543 21.1046 2 20 2Z"
-              fill="#000000"
-            />
-          </svg>
-                      <span class="flex-1 ms-3 whitespace-nowrap">Messages</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M20 2H4C2.89543 2 2 2.89543 2 4V18C2 19.1046 2.89543 20 4 20H18L22 24V4C22 2.89543 21.1046 2 20 2Z"
+                fill="#000000" />
+            </svg>
+            <span class="flex-1 ms-3 whitespace-nowrap">Messages</span>
           </a>
         </li>
         <li>
@@ -114,37 +107,37 @@
 
 
   <div class="p-4 sm:ml-64 mt-14">
-    <div
-      class=""
-      id="file-list">
-
+    <div class="" id="file-list">
       <div class="h-screen flex flex-col">
         <div class="bg-gray-200 flex-1 overflow-y-scroll">
-            <div class="px-4 py-2">
-                <div class="flex items-center mb-2">
-                    <img class="w-8 h-8 rounded-full mr-2" src="https://picsum.photos/50/50" alt="User Avatar">
-                    <div class="font-medium">John Doe</div>
-                </div>
-                <div class="bg-white rounded-lg p-2 shadow mb-2 max-w-sm">
-                    Hi, how can I help you?
-                </div>
-                <div class="flex items-center justify-end">
-                    <div class="bg-blue-500 text-white rounded-lg p-2 shadow mr-2 max-w-sm">
-                        Sure, I can help with that.
-                    </div>
-                    <img class="w-8 h-8 rounded-full" src="https://picsum.photos/50/50" alt="User Avatar">
-                </div>
+          <div class="bg-red-500" id="user"  user-id="6qw6q6w6ww76wq7w6qw76q6q">USERNAME</div>
+          <div class="px-4 py-2">
+            <div class="flex items-center mb-2">
+              <img class="w-8 h-8 rounded-full mr-2" src="https://picsum.photos/50/50" alt="User Avatar">
+              <div class="font-medium">John Doe</div>
             </div>
+            <div class="bg-white rounded-lg p-2 shadow mb-2 max-w-sm">
+              Hi, how can I help you?
+            </div>
+            <div class="flex items-center justify-end">
+              <div class="bg-blue-500 text-white rounded-lg p-2 shadow mr-2 max-w-sm">
+                Sure, I can help with that.
+              </div>
+              <img class="w-8 h-8 rounded-full" src="https://picsum.photos/50/50" alt="User Avatar">
+            </div>
+          </div>
         </div>
         <div class="bg-gray-100 px-4 py-2">
-            <div class="flex items-center">
-                <input class="w-full border rounded-full py-2 px-4 mr-2" type="text" placeholder="Type your message...">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full">
-            Send
-          </button>
-            </div>
+          <div class="flex items-center">
+            <input class="w-full border rounded-full py-2 px-4 mr-2" type="text" placeholder="Type your message..."
+              id="message">
+            <button type="button" id="send"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full">
+              Send
+            </button>
+          </div>
         </div>
-    </div>
+      </div>
     </div>
   </div>
 

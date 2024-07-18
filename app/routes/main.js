@@ -26,8 +26,7 @@ router.use(jwt.tokenCheck);
 router.get('/', MainController.Index);
 //Chat routes
 router.get('/chats', ChatController.chatView);
-router.get('/messages/:senderId/:receiverId', ChatController.getMessages);
-router.post('/messages/:senderId/:receiverId', ChatController.sendMessage);
+router.get('/messages/:receiverId', ChatController.getMessages);
 
 // File upload routes
 router.post('/upload-single-file', (req, res, next) => { upload.single('file')(req, res, (err) => { if (err) return upload.errorHandler(err, req, res, next); FilesController.uploadSingleFile }); });
