@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/', router);
 
-if (!process.env.IS_PRODUCTION) {
+if (process.env.NODE_ENV !== 'production') {
   const loggerMiddleware = require('./app/middlewares/logger.js');
   app.use(loggerMiddleware);
 }

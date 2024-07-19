@@ -47,14 +47,14 @@ exports.login = async (req, res) => {
     if (data.status === 200) {
       res.cookie('token', data.token, {
         httpOnly: true,
-        secure: process.env.IS_PRODUCTION,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'Strict',
         maxAge: rememberMe ? 7 * 24 * 60 * 60 * 1000 : 15 * 60 * 1000
       });
 
       res.cookie('refreshToken', data.refreshToken, {
         httpOnly: true,
-        secure: process.env.IS_PRODUCTION,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'Strict',
         maxAge: rememberMe ? 15 * 24 * 60 * 60 * 1000 : 15 * 60 * 1000
       });
