@@ -16,6 +16,19 @@
             border-radius: 50%;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
+
+        .pointer {
+            position: absolute;
+            top: 250px;
+            right: -3px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 30px solid #ff0000;
+            z-index: 10;
+            transform: rotate(270deg);
+        }
     </style>
 </head>
 
@@ -127,15 +140,15 @@
 
 
     <div class="p-4 sm:ml-64 mt-14">
-        <div
-            class="grid">
+        <div class="grid">
             <div class="flex justify-center items-center m-0">
                 <div class="wheel-container relative flex flex-col items-center">
+                    <div class="pointer"></div>
                     <canvas id="wheel" width="500" height="500"></canvas>
                     <button id="spinButton"
                         class="mt-5 px-8 py-4 text-lg text-white bg-blue-500 rounded-md hover:bg-blue-700 transition duration-300 ease-in-out">Başlat</button>
-                        <div id="result" class="mt-5 text-xl font-bold text-gray-800"></div>
-                    </div>
+                    <!-- <div id="result" class="mt-5 text-xl font-bold text-gray-800"></div> -->
+                </div>
             </div>
         </div>
     </div>
