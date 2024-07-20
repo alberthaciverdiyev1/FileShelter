@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const AuthController = require('../controllers/auth');
 const MainController = require('../controllers/home');
 const UserController = require('../controllers/user');
+const WheelController = require('../controllers/wheel.js');
 const FilesController = require('../controllers/files');
 const ChatController = require('../controllers/chat.js');
 const validate = require('../validators/validate');
@@ -35,5 +36,7 @@ router.post('/upload-multiple-files', (req, res, next) => { upload.array('files'
 router.get('/get-files', FilesController.listFiles)
 //User routes
 router.get('/get-users', UserController.getAllUsers)
+//wheel routes
+router.get('/wheel', WheelController.wheelView)
 
 module.exports = router;
