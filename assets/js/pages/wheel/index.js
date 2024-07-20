@@ -39,7 +39,7 @@ function startSpin() {
     isSpinning = true;
     spinButton.disabled = true;
 
-    const spinDuration = Math.random() * 5000 + 3000;
+    const spinDuration = 2000;
     const spinEndTime = Date.now() + spinDuration;
 
     let speed = Math.random() * 20 + 20;
