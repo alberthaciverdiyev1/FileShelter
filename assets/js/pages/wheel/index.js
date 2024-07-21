@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const resizeCanvas = () => {
         canvas.width = window.innerWidth < 600 ? window.innerWidth - 20 : 600;
         canvas.height = canvas.width;
-        drawWheel(); // Redraw wheel when resizing
+        drawWheel(); 
     };
 
     window.addEventListener('resize', resizeCanvas);
-    resizeCanvas(); // Initial resize
+    resizeCanvas();
 
     const getTopics = async () => {
         try {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const data = await response.json();
-            segments = data.map(x => x.topic.slice(0, 15));
+            segments = data.map(x => x.topic);
 
             drawWheel();
         } catch (error) {
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
             ctx.textAlign = "right";
             ctx.fillStyle = "#fff";
             ctx.font = `${Math.max(10, radius /10)}px Arial`; 
-            ctx.fillText(segment, radius - 10, 10);
+            ctx.fillText(segment.slice(0,15), radius - 10, 10);
             ctx.restore();
         });
     }
