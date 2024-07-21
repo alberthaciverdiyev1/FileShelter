@@ -7,18 +7,24 @@ document.addEventListener('DOMContentLoaded', function () {
             password: document.getElementById(`password`).value,
             confirmPassword: document.getElementById(`confirm_password`).value,
         };
-        console.log(data);
-        fetch('/register', {
+       const response = await fetch('/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-        }).then(function (res) {
-            console.log(res);
-        }).catch(function (err) {
-            console.log(err);
-        });
+        })
+
+        const responseData = await response.json();
+        console.log({ data: responseData});
+
+        if (response.status === 201) {
+            document.getElementById('error-msg').innerHTML = responseData.message;
+            window.location.href = '/login';
+        } else {
+            console.error('Error:', response.status, responseData.error);
+            document.getElementById('error-msg').innerHTML = responseData.error;
+        }
     });
 
   });

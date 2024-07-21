@@ -5,12 +5,14 @@ require('dotenv').config();
 
 exports.registerUser = async (username, email, password) => {
   try {
-    let user = await User.findOne({ $or: [{ username }, { email }] });
-    if (user) {
+    let existsUser = await User.findOne({ $or: [{ username }, { email }] });
+    console.log({existsUser});
+
+    if (existsUser) {
       return { status: 400, message: "Username or email already exists", user: [] };
     }
 
-    user = new User({ username, email, password });
+   let  user = new User({ username, email, password });
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
     await user.save();

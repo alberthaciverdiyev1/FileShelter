@@ -14,7 +14,8 @@ exports.register = async (req, res) => {
   const { username, email, password } = req.body;
   try {
     const response = await authService.registerUser(username, email, password);
-    return response;
+    res.status(201).json(response);
+
 
     // if (response.status === 201) {
     //   const payload = {

@@ -20,9 +20,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const responseData = await response.json();
 
         if (response.status === 200) {
+            document.getElementById('error-msg').innerHTML = responseData.message;
             window.location.href = '/';
         } else {
             console.error('Error:', response.status, responseData.message);
+            document.getElementById('error-msg').innerHTML = responseData.message;
         }
 
     });
