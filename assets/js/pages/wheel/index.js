@@ -1,5 +1,3 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', function () {
     const canvas = document.getElementById('wheel');
     const ctx = canvas.getContext('2d');
@@ -8,8 +6,11 @@ document.addEventListener('DOMContentLoaded', function () {
     let segments = [];
 
     const resizeCanvas = () => {
-        canvas.width = window.innerWidth < 600 ? window.innerWidth - 20 : 600;
-        canvas.height = canvas.width;
+        const maxWidth = window.innerWidth - 20;
+        const maxHeight = window.innerHeight - 20;
+        const size = Math.min(maxWidth, maxHeight);
+        canvas.width = size;
+        canvas.height = size;
         drawWheel(); 
     };
 
@@ -45,15 +46,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function drawWheel() {
         if (segments.length === 0) return;
-        for (let i = 0; i < segments.length; i++) {
-            const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
-            colors.push(randomColor);
-        }
+        colors = segments.map(() => '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')); // Renkler
+
         const numSegments = segments.length;
         const arcSize = (2 * Math.PI) / numSegments;
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
-        const radius = centerX ;
+        const radius = centerX;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         segments.forEach((segment, index) => {
@@ -68,8 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
             ctx.rotate(startAngle + arcSize / 2);
             ctx.textAlign = "right";
             ctx.fillStyle = "#fff";
-            ctx.font = `${Math.max(10, radius /10)}px Arial`; 
-            ctx.fillText(segment.slice(0,15), radius - 10, 10);
+            ctx.font = `${Math.max(10, radius / 10)}px Arial`; 
+            ctx.fillText(segment.slice(0, 15), radius - 10, 10);
             ctx.restore();
         });
     }
