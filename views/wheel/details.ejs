@@ -10,36 +10,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/loader.css">
     <link rel="stylesheet" href="/css/fancybox/fancybox.css" />
-    <style>
-        canvas {
-            border: 10px solid #333;
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .pointer {
-            position: absolute;
-            top: 250px;
-            right: -3px;
-            width: 0;
-            height: 0;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-bottom: 30px solid #ff0000;
-            z-index: 10;
-            transform: rotate(270deg);
-        }
-        .details{
-            position: absolute;
-            /* top: 300px;
-            left: 20px;
-            background: white;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            display: none; */
-        }
-    </style>
 </head>
 
 <body class="bg-gray-100">
@@ -150,19 +120,59 @@
 
 
     <div class="p-4 sm:ml-64 mt-14">
-        <div class="grid">
-            <button class="mr-3 px-8 flex py-2 text-md text-white bg-green-500 rounded-md hover:bg-green-700 transition duration-300 ease-in-out details"><a href="/wheel-details">Details</a></button>
-            <div class="flex justify-center items-center m-0">
-                <div class="wheel-container relative flex flex-col items-center">
-                    <div class="pointer"></div>
-                    <canvas id="wheel" width="500" height="500"></canvas>
-
-                        <button id="spinButton"
-                            class="mt-5 px-8 py-4 text-lg text-white bg-blue-500 rounded-md hover:bg-blue-700 transition duration-300 ease-in-out">Start</button>
-                        <!-- <div id="result" class="mt-5 text-xl font-bold text-gray-800"></div> -->
-                       
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center gap-2 pb-4">
+                <div class="relative">
+                    <input type="text" id="topic-data"
+                        class="block p-2 ps-10 text-sm text-white border border-gray-300 rounded-lg w-80 bg-gray-50"
+                        placeholder="Write Something">
+                </div>
+                <div>
+                    <button
+                        class="mr-3 px-8 flex py-1.5 text-md text-white bg-green-500 border border-gray-300 rounded-lg hover:bg-green-700 transition duration-300 ease-in-out details" id="add-topic">Add</button>
                 </div>
             </div>
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            No.
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Topic
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            User Name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Date
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="font-medium whitespace-nowrap  text-black ">
+                    <tr class="bg-gray-100 border-b  text-black">
+                        <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                            1
+                        </th>
+                        <td class="px-6 py-4">
+                            Silver
+                        </td>
+                        <td class="px-6 py-4">
+                            Laptop
+                        </td>
+                        <td class="px-6 py-4">
+                            $2999
+                        </td>
+                        <td class="px-6 py-4">
+                            <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                        </td>
+                    </tr>
+            
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -219,9 +229,7 @@
 
 
     <script src="/js/pages/home/index.js"></script>
-    <script src="/js/helpers/fancybox.umd.js"></script>
-    <script src="/js/pages/wheel/index.js"></script>
-
+    <script src="/js/pages/wheel/details.js"></script>
 </body>
 
 </html>

@@ -38,6 +38,7 @@ router.get('/get-files', FilesController.listFiles)
 router.get('/get-users', UserController.getAllUsers)
 //wheel routes
 router.get('/wheel', WheelController.wheelView)
+router.get('/wheel-details', WheelController.wheelDetails)
 router.post('/wheel', WheelController.wheelAction)
 
 module.exports = router;
