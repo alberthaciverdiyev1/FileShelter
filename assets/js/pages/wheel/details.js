@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             }
     
             const data = await response.json();
+            console.log({data});
             return data;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
@@ -36,10 +37,14 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 body: JSON.stringify({ topic: topic })
             });
     
-            const responseData = await response.json();
-            console.log({ responseData: responseData });
-    
-            if (response.status === 200) {
+            const responseData = await response.json();    
+            if (response.status === 201) {
+                Swal.fire({
+                    title: 'Successfully added',
+                    icon: 'success', 
+                    confirmButtonText: 'Ok'
+                  });
+                  
                 getTopic();
             } else {
                 console.error('Error:', response.status, responseData.message);
