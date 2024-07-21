@@ -23,7 +23,7 @@ router.post('/register', validate.registerValidator, AuthController.register);
 router.get('/login', AuthController.loginView);
 router.post('/login', AuthController.login);
 
-// router.use(jwt.tokenCheck);  
+router.use(jwt.tokenCheck);  
 router.get('/', MainController.Index);
 //Chat routes
 router.get('/chats', ChatController.chatView);
@@ -39,6 +39,6 @@ router.get('/get-users', UserController.getAllUsers)
 //wheel routes
 router.get('/wheel', WheelController.wheelView)
 router.get('/wheel-details', WheelController.wheelDetails)
-router.post('/wheel', WheelController.wheelAction)
+router.post('/topic', WheelController.addTopic)
 
 module.exports = router;
