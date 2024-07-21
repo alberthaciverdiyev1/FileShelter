@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function (e) {
     const tableHtml = (data) => {
-        console.log({data});
         let h = '';
         data.map((v, i) => {
             h += `   <tr class="bg-gray-100 border-b  text-black">
@@ -20,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
                             <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                         </td>
                     </tr>`
-            console.log({ v, i });
         });
 
         document.getElementById('topics-table-body').innerHTML = h;
@@ -72,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     confirmButtonText: 'Ok'
                 });
 
-                getTopic();
+                getTopics();
             } else {
                 console.error('Error:', response.status, responseData.message);
             }
