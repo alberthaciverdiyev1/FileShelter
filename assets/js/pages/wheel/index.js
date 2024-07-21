@@ -1,8 +1,20 @@
+// script.js
+
 document.addEventListener('DOMContentLoaded', function () {
     const canvas = document.getElementById('wheel');
     const ctx = canvas.getContext('2d');
     const spinButton = document.getElementById('spinButton');
+    const pointer = document.getElementById('pointer');
     let segments = [];
+
+    const resizeCanvas = () => {
+        canvas.width = window.innerWidth < 600 ? window.innerWidth - 20 : 600;
+        canvas.height = canvas.width;
+        drawWheel(); // Redraw wheel when resizing
+    };
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas(); // Initial resize
 
     const getTopics = async () => {
         try {
@@ -18,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const data = await response.json();
-            segments = data.map(x => x.topic);
+            segments = data.map(x => x.topic.slice(0, 15));
 
             drawWheel();
         } catch (error) {
@@ -27,30 +39,37 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     getTopics();
 
-    const colors = ['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33B2', '#33FFF2'];
+    let colors = [];
     let angle = 0;
     let isSpinning = false;
 
     function drawWheel() {
-        if (segments.length === 0) return; 
-
+        if (segments.length === 0) return;
+        for (let i = 0; i < segments.length; i++) {
+            const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+            colors.push(randomColor);
+        }
         const numSegments = segments.length;
         const arcSize = (2 * Math.PI) / numSegments;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = centerX ;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         segments.forEach((segment, index) => {
             const startAngle = index * arcSize;
             ctx.beginPath();
-            ctx.arc(250, 250, 250, startAngle, startAngle + arcSize);
-            ctx.lineTo(250, 250);
+            ctx.arc(centerX, centerY, radius, startAngle, startAngle + arcSize);
+            ctx.lineTo(centerX, centerY);
             ctx.fillStyle = colors[index % colors.length];
             ctx.fill();
             ctx.save();
-            ctx.translate(250, 250);
+            ctx.translate(centerX, centerY);
             ctx.rotate(startAngle + arcSize / 2);
             ctx.textAlign = "right";
             ctx.fillStyle = "#fff";
-            ctx.font = "bold 20px Arial";
-            ctx.fillText(segment, 200, 10);
+            ctx.font = `${Math.max(10, radius /10)}px Arial`; 
+            ctx.fillText(segment, radius - 10, 10);
             ctx.restore();
         });
     }
@@ -71,12 +90,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (elapsedTime <= 0) {
                 isSpinning = false;
                 spinButton.disabled = false;
-                angle %= 360; 
+                angle %= 360;
                 const numSegments = segments.length;
                 const arcSize = 360 / numSegments;
                 const selectedIndex = Math.floor(((360 - (angle % 360)) % 360) / arcSize);
-                
-        
+
                 Swal.fire({
                     title: segments[selectedIndex],
                     icon: 'success',
@@ -90,9 +108,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.save();
-            ctx.translate(250, 250);
+            ctx.translate(canvas.width / 2, canvas.height / 2);
             ctx.rotate(angle * Math.PI / 180);
-            ctx.translate(-250, -250);
+            ctx.translate(-canvas.width / 2, -canvas.height / 2);
             drawWheel();
             ctx.restore();
             requestAnimationFrame(animate);
