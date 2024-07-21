@@ -22,3 +22,7 @@ exports.addTopic = (req, res) => {
     };
     topicService.addTopic(data, res);
 };
+
+exports.getTopics = (req, res) => {
+    topicService.getAll(req, res);
+};

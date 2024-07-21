@@ -39,6 +39,7 @@ router.get('/get-users', UserController.getAllUsers)
 //wheel routes
 router.get('/wheel', WheelController.wheelView)
 router.get('/wheel-details', WheelController.wheelDetails)
+router.get('/topics', WheelController.getTopics)
 router.post('/topic', WheelController.addTopic)
 
 module.exports = router;

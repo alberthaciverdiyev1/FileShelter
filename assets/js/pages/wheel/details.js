@@ -1,6 +1,32 @@
 document.addEventListener("DOMContentLoaded", function (e) {
+    const tableHtml = (data) => {
+        console.log({data});
+        let h = '';
+        data.map((v, i) => {
+            h += `   <tr class="bg-gray-100 border-b  text-black">
+                        <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                            ${i + 1}
+                        </th>
+                        <td class="px-6 py-4">
+                            ${v.topic}
+                        </td>
+                        <td class="px-6 py-4">
+                            ${v.user.username}
+                        </td>
+                        <td class="px-6 py-4">
+                            ${v.createdAt}
+                        </td>
+                        <td class="px-6 py-4">
+                            <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                        </td>
+                    </tr>`
+            console.log({ v, i });
+        });
 
-    const getTopic = async () => {
+        document.getElementById('topics-table-body').innerHTML = h;
+    }
+
+    const getTopics = async () => {
         try {
             const response = await fetch('/topics', {
                 method: 'GET',
@@ -8,27 +34,28 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     'Content-Type': 'application/json'
                 }
             });
-    
+
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-    
+
             const data = await response.json();
-            console.log({data});
-            return data;
+            console.log({ data });
+            tableHtml(data);
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
     };
-    
+    getTopics();
+
     document.getElementById('add-topic').addEventListener('click', async function () {
         console.log("he's already added");
         let topic = document.getElementById('topic-data').value;
-    
+
         if (topic !== "") {
             // Clear the input field
             document.getElementById('topic-data').value = "";
-    
+
             const response = await fetch('/topic', {
                 method: 'POST',
                 headers: {
@@ -36,21 +63,21 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 },
                 body: JSON.stringify({ topic: topic })
             });
-    
-            const responseData = await response.json();    
+
+            const responseData = await response.json();
             if (response.status === 201) {
                 Swal.fire({
                     title: 'Successfully added',
-                    icon: 'success', 
+                    icon: 'success',
                     confirmButtonText: 'Ok'
-                  });
-                  
+                });
+
                 getTopic();
             } else {
                 console.error('Error:', response.status, responseData.message);
             }
         }
     });
-    
+
 
 });
