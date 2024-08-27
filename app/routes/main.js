@@ -11,6 +11,7 @@ const UserController = require('../controllers/user');
 const WheelController = require('../controllers/wheel.js');
 const FilesController = require('../controllers/files');
 const ChatController = require('../controllers/chat.js');
+const DictionaryController = require('../controllers/dictionary.js');
 const validate = require('../validators/validate');
 const jwt = require('../helpers/jwt'); 
 router.use(cookieParser());
@@ -41,5 +42,8 @@ router.get('/wheel', WheelController.wheelView)
 router.get('/wheel-details', WheelController.wheelDetails)
 router.get('/topics', WheelController.getTopics)
 router.post('/topic', WheelController.addTopic)
+// dictionary routes
+router.get('/dictionary', DictionaryController.index)
+
 
 module.exports = router;
