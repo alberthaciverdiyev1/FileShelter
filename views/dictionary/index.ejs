@@ -128,67 +128,54 @@
         </div>
     </aside>
 
-
     <div class="p-4 sm:ml-64 mt-14">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center gap-2 pb-4">
-                <div class="relative">
-                    <div class="flex gap-4">
-                        <div class="flex-1">
-                            <input type="text"  id="foreign-word"
-                                class="block p-1 sm:p-2 ps-2 sm:ps-10 text-xs sm:text-sm text-black border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50"
-                                placeholder="Write Something">
-                        </div>
-                        <div class="flex-1">
-                            <input type="text" id="translated-word"
-                                class="block p-1 sm:p-2 ps-2 sm:ps-10 text-xs sm:text-sm text-black border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50"
-                                placeholder="Write Something">
-                        </div>
-                        <div class="flex-1">
-                            <textarea  id="description"
-                                class="block p-1 sm:p-2 ps-2 sm:ps-10 text-xs sm:text-sm text-black border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50"
-                                placeholder="Write Something"></textarea>
-                        </div>
-                    </div>
+            <div class="flex flex-col sm:flex-row sm:flex-wrap space-y-4 sm:space-y-0 sm:gap-4 items-center pb-4">
+                <div class="flex flex-col sm:flex-row w-full gap-2">
+                    <input type="text" id="foreign-word"
+                        class="block p-2 text-xs sm:text-sm text-black border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50"
+                        placeholder="Foreign Word">
+                    <input type="text" id="translated-word"
+                        class="block p-2 text-xs sm:text-sm text-black border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50"
+                        placeholder="Translated Word">
+                    <textarea id="description"
+                        class="block p-2 text-xs sm:text-sm text-black border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50"
+                        placeholder="Description"></textarea>
                 </div>
-                
-                <div>
-                    <button
-                        class="mr-3 px-8 flex py-1.5 text-md text-white bg-green-500 border border-gray-300 rounded-lg hover:bg-green-700 transition duration-300 ease-in-out details" id="add-word">Add</button>
-                </div>
+                <button
+                    class="w-full sm:w-auto px-8 py-2 text-sm sm:text-md text-white bg-green-500 border border-gray-300 rounded-lg hover:bg-green-700 transition duration-300 ease-in-out"
+                    id="add-word">Add</button>
             </div>
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                    <tr>
-                        <th scope="col" class="px-3 py-3">
-                            No.
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Eng
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Aze
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Description
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Action
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="font-medium whitespace-nowrap  text-black" id="topics-table-body">
-                 
-            
-                </tbody>
-            </table>
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-2 py-2 md:px-3 md:py-3">
+                                No.
+                            </th>
+                            <th scope="col" class="px-2 py-2 md:px-6 md:py-3">
+                                Eng
+                            </th>
+                            <th scope="col" class="px-2 py-2 md:px-6 md:py-3">
+                                Aze
+                            </th>
+                            <th scope="col" class="px-2 py-2 md:px-6 md:py-3">
+                                Description
+                            </th>
+                            <th scope="col" class="px-2 py-2 md:px-6 md:py-3">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs whitespace-nowrap text-black" id="topics-table-body">
+                    </tbody>
+                    
+                </table>
+            </div>
         </div>
     </div>
 
-
     <!-- MODAL -->
-
-
 
     <script src="/js/pages/home/index.js"></script>
     <script src="/js/pages/dictionary/index.js"></script>

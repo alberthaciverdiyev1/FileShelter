@@ -1,43 +1,60 @@
 document.addEventListener("DOMContentLoaded", function (e) {
-    const tableHtml = (data) => {
-        console.log({data});
-        
+    const tableHtml = (data) => {        
         let h = '';
         data.map((v, i) => {
             h += `
-                <tr class="bg-gray-100 border-b text-black">
-                    <th scope="row" class="px-3 py-3 font-medium whitespace-nowrap text-center">
-                        ${i + 1}
-                    </th>
-                    <td class="px-2 py-2 sm:px-4 sm:py-2">
-                        <input type="text" id="topic-data"
-                            class="block p-1 sm:p-2 ps-2 sm:ps-10 text-xs sm:text-sm text-black border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50"
-                            value="${v.foreignWord}"
-                            placeholder="Write Something">
-                    </td>
-                    <td class="px-2 py-2 sm:px-4 sm:py-2">
-                        <input type="text" id="topic-data"
-                            class="block p-1 sm:p-2 ps-2 sm:ps-10 text-xs sm:text-sm text-black border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50"
-                            value="${v.translatedWord}"
-                            placeholder="Write Something">
-                    </td>
-                    <td class="px-2 py-2 sm:px-4 sm:py-2">
-                        <textarea type="text" id="topic-data"
-                            class="block p-1 sm:p-2 ps-2 sm:ps-10 text-xs sm:text-sm text-black border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50">
-                            ${v.description}
-\                            </textarea>
-
-                    </td>
-                    <td class="px-2 py-2 sm:px-4 sm:py-2">
-                        <a href="#" class="font-medium text-yellow-600 hover:underline">Edit</a>
-                        <a href="#" class="font-medium text-red-600 hover:underline">Delete</a>
-                    </td>
-                </tr>`;
+             <tr class="bg-gray-100 border-b text-black">
+                <th scope="row" class="px-3 py-2 font-medium whitespace-nowrap text-center text-sm sm:text-base">
+                    ${i + 1}
+                </th>
+                <td class="px-3 py-2 text-sm sm:text-base">
+                    ${v.foreignWord}
+                </td>
+                <td class="px-3 py-2 text-sm sm:text-base">
+                    ${v.translatedWord}
+                </td>
+                <td class="px-3 py-2 text-sm sm:text-base">
+                    ${v.description}
+                </td>
+                <td class="px-3 py-2 text-sm sm:text-base">
+                    <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
+                        <button class="py-1 px-3 text-xs sm:text-xs text-white bg-yellow-500 border border-gray-300 rounded-lg hover:bg-yellow-700 transition duration-300 ease-in-out" id="edit-word">
+                            Edit
+                        </button>
+                        <button class="py-1 px-3 text-xs sm:text-xs text-white bg-red-500 border border-gray-300 rounded-lg hover:bg-red-700 transition duration-300 ease-in-out" id="delete-word">
+                            Delete
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            `;
         });
+        
 
         document.getElementById('topics-table-body').innerHTML = h;
     }
 
+
+
+//     <td class="px-2 py-2 sm:px-4 sm:py-2">
+//     <input type="text" id="topic-data"
+//         class="block p-1 sm:p-2 ps-2 sm:ps-10 text-xs sm:text-sm text-black border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50"
+//         value="${v.foreignWord}"
+//         placeholder="Write Something">
+// </td>
+// <td class="px-2 py-2 sm:px-4 sm:py-2">
+//     <input type="text" id="topic-data"
+//         class="block p-1 sm:p-2 ps-2 sm:ps-10 text-xs sm:text-sm text-black border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50"
+//         value="${v.translatedWord}"
+//         placeholder="Write Something">
+// </td>
+// <td class="px-2 py-2 sm:px-4 sm:py-2">
+//     <textarea type="text" id="topic-data"
+//         class="block p-1 sm:p-2 ps-2 sm:ps-10 text-xs sm:text-sm text-black border border-gray-300 rounded-lg w-full sm:w-80 bg-gray-50">
+//         ${v.description}
+//     </textarea>
+
+// </td>
 
     const getDictionary = async () => {
         try {
