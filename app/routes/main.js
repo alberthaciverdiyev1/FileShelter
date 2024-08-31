@@ -44,6 +44,8 @@ router.get('/topics', WheelController.getTopics)
 router.post('/topic', WheelController.addTopic)
 // dictionary routes
 router.get('/dictionary', DictionaryController.index)
+router.get('/dictionary-list', DictionaryController.list)
+router.post('/add-word', DictionaryController.addWord)
 
 
 module.exports = router;
