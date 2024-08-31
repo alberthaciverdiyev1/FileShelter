@@ -9,35 +9,31 @@ exports.list = (req, res) => {
 };
 
 exports.addWord = (req, res) => {
-    
+
     const capitalizeFirstLetter = (string) => {
         if (!string) return '';
+        string = string.trim();
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     };
-    
-    const { foreignWord, translatedWord, description } = req.body.data;
-    
-    const trimmedForeignWord = foreignWord ? foreignWord.trim() : '';
-    const trimmedTranslatedWord = translatedWord ? translatedWord.trim() : '';
-    const trimmedDescription = description ? description.trim() : '';
-    
-    const capitalizedForeignWord = capitalizeFirstLetter(trimmedForeignWord);
-    const capitalizedTranslatedWord = capitalizeFirstLetter(trimmedTranslatedWord);
-    const capitalizedDescription = capitalizeFirstLetter(trimmedDescription);
-    
-    if (!capitalizedForeignWord || !capitalizedTranslatedWord) {
+
+    let { foreignWord, translatedWord, description } = req.body.data;
+    if (!foreignWord || !translatedWord) {
         return res.status(400).json({ error: 'Foreign Word or Translated Word is required.' });
     }
-    
+
+    foreignWord = capitalizeFirstLetter(foreignWord);
+    translatedWord = capitalizeFirstLetter(translatedWord);
+    description = description ? capitalizeFirstLetter(description) : '';
+
     const data = {
-        foreignWord: capitalizedForeignWord,
-        translatedWord: capitalizedTranslatedWord,
-        description: capitalizedDescription,
+        foreignWord,
+        translatedWord,
+        description,
         userId: req.auth.user.id
     };
-    
+
     dictionaryService.addWord(data, res);
-    
+
 };
 exports.update = (req, res) => {
     dictionaryService.getAllUsers(req, res);
