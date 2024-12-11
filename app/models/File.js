@@ -6,9 +6,13 @@ const fileSchema = new Schema({
         type: String,
         required: true
     },
-    path: {
+    originalPath: {
         type: String,
         required: true
+    },
+    thumbnailPath: {
+        type: String,
+        default: null 
     },
     size: {
         type: Number,

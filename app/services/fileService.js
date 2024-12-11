@@ -14,44 +14,68 @@ exports.uploadSingleFile = async (req, res) => {
   });
 
   newFile.save()
-    .then(file => res.status(201).json(file))
-    .catch(error => res.status(500).json({ error: error.message }));
-  res.json({ message: 'File uploaded successfully', file: req.file });
+
+  return {
+    status: 201,
+    message: 'File uploaded successfully.',
+  };
 };
 
-exports.uploadMultipleFiles = async (req, res) => {
+exports.uploadMultipleFiles = async (uploadResults, req, res) => {
   try {
-    for (const file of req.filearray) {
-      console.log("file", file);
+    for (const file of uploadResults) {
       const newFile = new Files({
-        filename: file[2],
-        path: file[3],
-        size: file[0],
-        mimeType: file[1],
-        uploadedBy: req.auth.user.id, 
+        filename: file.originalName,
+        originalPath: file.originalFile,
+        thumbnailPath: file.thumbnailFile,
+        size: file.size,
+        mimeType: file.mimetype,
+        uploadedBy: req.auth.user.id,
       });
       await newFile.save();
     }
-    res.status(201).json({ status: 201, message: 'Files uploaded successfully' });
+    return {
+      status: 201,
+      message: 'Files uploaded successfully.',
+    };
   } catch (error) {
-    console.log({ error });
     if (!res.headersSent) {
-      res.status(500).json({ status: 500, error: error.message });
+      return {
+        status: 500,
+        message: error.message,
+      };
     }
   }
 };
+
+
 exports.listFiles = async (req, res) => {
   try {
-    const files = await Files.find({
-      $and: [
-        { deleted_at: { $exists: false } }
-      ]
-    }).select('path filename likes uploadedAt');
-    // return files;
-    // console.log({files}); 
-    res.json({ status: 200, message: 'Success', data: files });
+    const files = await Files.find({ deletedAt: null })
+      .select('originalPath thumbnailPath filename size mimeType uploadedAt likes isPublic')
+      .sort({ uploadedAt: -1 });
+
+    if (!files) {
+      return {
+        status: 404,
+        message: 'No files found',
+      };
+    }
+    return {
+      status: 200,
+      message: 'Files retrieved successfully',
+      data: files
+    };
+
   } catch (error) {
-    console.error('Error fetching document:', error);
-    throw error;
+    console.error('Error in fileService.listFiles:', error.message);
+    if (!res.headersSent) {
+      return {
+        status: 500,
+        message: error.message
+      };
+    }
   }
-}
+};
+
+

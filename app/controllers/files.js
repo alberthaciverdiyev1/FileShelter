@@ -12,16 +12,20 @@ exports.uploadSingleFile = async (req, res) => {
         const file = req.file;
 
         const saveResult = await saveFileLocally(file);
-        
-        await fileService.uploadSingleFile(req, res);
 
-        res.status(200).json({
-            message: 'File uploaded successfully',
+        let response = await fileService.uploadSingleFile(req, res);
+
+        res.status(response.status).json({
+            message: response.message,
+            status: response.status,
             result: saveResult
         });
     } catch (err) {
-        console.error('Error during single file upload:', err.message);
-        res.status(500).json({ message: 'An error occurred during single file upload' });
+        res.status(response.status).json({
+            message: response.message,
+            status: response.status,
+            result: saveResult
+        });
     }
 };
 
@@ -38,24 +42,39 @@ exports.uploadMultipleFiles = async (req, res) => {
 
         const uploadResults = await Promise.all(uploadPromises);
 
-        // await fileService.uploadMultipleFiles(req, res);
+        let response = await fileService.uploadMultipleFiles(uploadResults, req, res);
 
-        res.status(200).json({
-            message: 'Files uploaded successfully',
-            results: uploadResults
+        console.log({ response })
+        res.status(response.status).json({
+            message: response.message,
+            status: response.status,
+            result: uploadResults
         });
     } catch (err) {
-        console.error('An error occurred during file upload:', err.message);
-        res.status(500).json({ message: 'An error occurred during file upload' });
+        res.status(response.status).json({
+            message: response.message,
+            status: response.status,
+            result: saveResult
+        });
     }
 };
+
 
 exports.listFiles = async (req, res) => {
     try {
-        const files = await fileService.listFiles(req, res);
-        res.status(200).json({ files });
+        let response = await fileService.listFiles(req, res);
+        res.status(response.status).json({
+            message: response.message,
+            status: response.status,
+            data: response.data
+        });
     } catch (err) {
-        console.error('Error listing files:', err.message);
-        res.status(500).json({ message: 'An error occurred while listing files' });
+        if (!res.headersSent) {
+            res.status(response.status).json({
+                message: response.message,
+                status: response.status,
+            });
+        }
     }
 };
+
