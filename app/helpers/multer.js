@@ -1,103 +1,85 @@
-const fetch = require('node-fetch');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
+const fs = require('fs');
 const multer = require('multer');
-const storage = multer.memoryStorage();
 const sharp = require('sharp');
-const { log } = require('console');
 
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = [
-    'image/jpeg',
-    'image/png',
-    'video/mp4',
-    'application/pdf',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-  ];
+const UPLOADS_DIR = path.join(__dirname, '../documents/uploads');
+const THUMBNAIL_DIR = path.join(__dirname, '../documents/thumbnails');
 
-  if (allowedTypes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    const error = new Error('Unsupported file type');
-    error.code = 'UNSUPPORTED_FILE_TYPE';
-    cb(error);
-  }
-};
+if (!fs.existsSync(UPLOADS_DIR)) {
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+}
 
-upload = multer({
-  storage: storage,
-  fileFilter: fileFilter
+if (!fs.existsSync(THUMBNAIL_DIR)) {
+    fs.mkdirSync(THUMBNAIL_DIR, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, UPLOADS_DIR);
+    },
+    filename: function (req, file, cb) {
+        const originalName = file.originalname.replace(/\s+/g, '-');
+        const uniqueName = `${Date.now()}-${uuidv4()}-${originalName}`;
+        cb(null, uniqueName);
+    }
 });
 
-upload.errorHandler = (err, req, res, next) => {
-  if (res.headersSent) {
-    console.log('Headers already sent in upload.errorHandler');
-    return next(err);
-  }
+const fileFilter = (req, file, cb) => {
+    const allowedTypes = [
+        'image/jpeg',
+        'image/png',
+        'video/mp4',
+        'application/pdf',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ];
 
-  if (err.code === 'LIMIT_UNEXPECTED_FILE') {
-    return res.status(400).json({ message: 'Too many files uploaded' });
-  } else if (err.code === 'UNSUPPORTED_FILE_TYPE') {
-    return res.status(400).json({ message: 'Unsupported file type' });
-  } else if (err.code === 'LIMIT_FILE_SIZE') {
-    return res.status(400).json({ message: 'File size too large' });
-  } else {
-    return res.status(500).json({ message: 'An unexpected error occurred' });
-  }
+    if (allowedTypes.includes(file.mimetype)) {
+        cb(null, true);
+    } else {
+        const error = new Error('Unsupported file type');
+        error.code = 'UNSUPPORTED_FILE_TYPE';
+        cb(error);
+    }
 };
 
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter,
+    limits: { fileSize: 10000 * 1024 * 1024 } 
+});
 
-// Function to upload file to Nextcloud
-uploadToNextcloud = async (file) => {
-  const uploadedFiles = [];
-  const uniqueName = uuidv4();
-  const uniqueFileName = uniqueName + path.extname(file.originalname);
-  const uniqueThumbnailName = uniqueName + '_thumbnail' + path.extname(file.originalname);
+const saveFileLocally = async (file) => {
+    try {
+        const uniqueName = uuidv4();
+        const originalFilePath = path.join(UPLOADS_DIR, file.filename);
 
-  const response = await fetch(`${process.env.NEXTCLOUD_FILES_URL}/${uniqueFileName}`, {
-    method: 'PUT',
-    headers: {
-      'Authorization': 'Basic ' + Buffer.from(`${process.env.NEXTCLOUD_USERNAME}:${process.env.NEXTCLOUD_PASSWORD}`).toString('base64'),
-      'Content-Type': file.mimetype
-    },
-    body: file.buffer
-  });
+        const uniqueThumbnailName = `${uniqueName}_thumbnail${path.extname(file.originalname)}`;
+        const thumbnailFilePath = path.join(THUMBNAIL_DIR, uniqueThumbnailName);
 
-  if (response.ok) {
-    const buffer = await sharp(file.buffer)
-      .jpeg({ quality: 50 })
-      .rotate()
-      .resize({ width: 400, height: 400 })
-      .toBuffer();
+        if (file.mimetype.startsWith('image/')) {
+            await sharp(originalFilePath)
+                .jpeg({ quality: 50 })
+                .rotate()
+                .resize({ width: 400, height: 400 })
+                .toFile(thumbnailFilePath);
+        }
 
-    const response = await fetch(`${process.env.NEXTCLOUD_THUMBNAILS_URL}/${uniqueThumbnailName}`, {
-      method: 'PUT',
-      headers: {
-        'Authorization': 'Basic ' + Buffer.from(`${process.env.NEXTCLOUD_USERNAME}:${process.env.NEXTCLOUD_PASSWORD}`).toString('base64'),
-        'Content-Type': file.mimetype
-      },
-      body: buffer
-    });
-
-    if (!response.ok) {
-      throw new Error(`Nextcloud upload failed: ${response.statusText}`);
+        return {
+            originalFile: originalFilePath,
+            thumbnailFile: file.mimetype.startsWith('image/') ? thumbnailFilePath : null,
+            size: file.size,
+            mimetype: file.mimetype,
+            originalName: file.originalname
+        };
+    } catch (err) {
+        console.error('Error saving file locally:', err.message);
+        throw err;
     }
-    uploadedFiles.push(
-      file.size,
-      file.mimetype,
-      file.originalname,
-      uniqueFileName,
-      uniqueThumbnailName
-    )
-
-  } else {
-    throw new Error(`Failed to upload file to Nextcloud: ${response.statusText}`);
-  }
-
-  return uploadedFiles;
 };
 
 module.exports = {
-  upload,
-  uploadToNextcloud,
+    upload,
+    saveFileLocally
 };

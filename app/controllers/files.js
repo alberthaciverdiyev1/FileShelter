@@ -1,11 +1,28 @@
 const fileService = require('../services/fileService');
-const sharp = require('../helpers/sharp');
-const { uploadToNextcloud } = require('../helpers/multer');
+const { upload, saveFileLocally } = require('../helpers/multer');
+const fs = require('fs');
+const path = require('path');
 
+exports.uploadSingleFile = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
 
+        const file = req.file;
 
-exports.uploadSingleFile = (req, res) => {
-    fileService.uploadSingleFile(req, res);
+        const saveResult = await saveFileLocally(file);
+        
+        await fileService.uploadSingleFile(req, res);
+
+        res.status(200).json({
+            message: 'File uploaded successfully',
+            result: saveResult
+        });
+    } catch (err) {
+        console.error('Error during single file upload:', err.message);
+        res.status(500).json({ message: 'An error occurred during single file upload' });
+    }
 };
 
 exports.uploadMultipleFiles = async (req, res) => {
@@ -14,16 +31,31 @@ exports.uploadMultipleFiles = async (req, res) => {
     }
 
     try {
-        const uploadedFiles = req.files.map(file => file.path);
-        const uploadPromises = req.files.map(file => uploadToNextcloud(file));
-        req.filearray = await Promise.all(uploadPromises);
-        await fileService.uploadMultipleFiles(req, res);
+        const uploadPromises = req.files.map(async (file) => {
+            const saveResult = await saveFileLocally(file);
+            return saveResult;
+        });
 
+        const uploadResults = await Promise.all(uploadPromises);
+
+        // await fileService.uploadMultipleFiles(req, res);
+
+        res.status(200).json({
+            message: 'Files uploaded successfully',
+            results: uploadResults
+        });
     } catch (err) {
-        console.error('An error occurred during file upload:', err);
-        return res.status(500).json({ message: 'An error occurred during file upload' });
+        console.error('An error occurred during file upload:', err.message);
+        res.status(500).json({ message: 'An error occurred during file upload' });
     }
 };
-exports.listFiles = (req, res) => {
-    fileService.listFiles(req, res);
+
+exports.listFiles = async (req, res) => {
+    try {
+        const files = await fileService.listFiles(req, res);
+        res.status(200).json({ files });
+    } catch (err) {
+        console.error('Error listing files:', err.message);
+        res.status(500).json({ message: 'An error occurred while listing files' });
+    }
 };
