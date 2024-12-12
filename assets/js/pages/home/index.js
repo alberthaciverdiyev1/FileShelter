@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
   <span class="load"></span>
   </div>
   `;
-    //   <span class="loader-text">loading</span>
 
     const htmlView = (data) => {
         console.log(data);
